@@ -9,7 +9,7 @@ import { useRef, useEffect, useState } from "react"
 
 interface Message {
   id: string;
-  role: "user" | "assistant";
+  role: "user" | "assistant"; // Keep these for your UI logic
   content: string;
 }
 
@@ -55,12 +55,15 @@ export function Chatbot() {
       console.log("🌐 Current URL:", window.location.origin);
       console.log("📤 Request payload:", {
         messages: [...messages, userMessage].map(msg => ({
-          role: msg.role,
+          role: msg.role === "user" ? "user" : "assistant", // Send correct roles to your API
           content: msg.content,
         })),
       });
 
-      const apiUrl = "/api/chat";
+      // --- CHANGE THIS LINE ---
+      const apiUrl = "/api/chat"; // Your new API route for Gemini
+      // --- END CHANGE ---
+
       console.log("📍 API URL:", apiUrl);
 
       const response = await fetch(apiUrl, {
@@ -70,7 +73,7 @@ export function Chatbot() {
         },
         body: JSON.stringify({
           messages: [...messages, userMessage].map(msg => ({
-            role: msg.role,
+            role: msg.role === "user" ? "user" : "assistant",
             content: msg.content,
           })),
         }),
@@ -105,8 +108,8 @@ export function Chatbot() {
       
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
-        role: "assistant",
-        content: data.reply || "Sorry, I couldn't generate a response.",
+        role: "assistant", // Keep 'assistant' for your UI
+        content: data.reply || "Sorry, I couldn't generate a response, young star gazer.",
       };
 
       setMessages(prev => [...prev, assistantMessage]);
@@ -121,7 +124,7 @@ export function Chatbot() {
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: `❌ Error: ${error instanceof Error ? error.message : 'Unknown error occurred'}`,
+        content: `❌ Error, young star gazer: ${error instanceof Error ? error.message : 'An unknown cosmic anomaly occurred'}`,
       };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
@@ -155,7 +158,7 @@ export function Chatbot() {
             </motion.div>
             <div>
               <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                AI Assistant
+                Astero, the Space Wizard
               </h2>
               <motion.p
                 animate={{ opacity: isTyping ? [0.5, 1, 0.5] : 1 }}
@@ -165,10 +168,10 @@ export function Chatbot() {
                 {isTyping ? (
                   <>
                     <Sparkles className="w-3 h-3" />
-                    Thinking...
+                    Channelling cosmic energies...
                   </>
                 ) : (
-                  "Ready to help!"
+                  "Ready to unveil cosmic secrets!"
                 )}
               </motion.p>
             </div>
@@ -193,8 +196,8 @@ export function Chatbot() {
                 >
                   <Bot className="w-16 h-16 mx-auto text-gray-500" />
                 </motion.div>
-                <h3 className="text-xl font-semibold mb-2 text-gray-300">Welcome to AI Assistant</h3>
-                <p>Start a conversation and explore the possibilities</p>
+                <h3 className="text-xl font-semibold mb-2 text-gray-300">Greetings, Seeker of Knowledge!</h3>
+                <p>I am Astero, a space wizard. Ask me of the cosmos!</p>
               </motion.div>
             )}
 
@@ -278,7 +281,7 @@ export function Chatbot() {
               <Input
                 value={input}
                 onChange={handleInputChange}
-                placeholder="Type your message..."
+                placeholder="Ask Astero about the cosmos..."
                 className="bg-gray-700/50 border-gray-600/50 text-white placeholder-gray-400 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 rounded-xl h-12 backdrop-blur-sm"
                 disabled={isLoading}
               />

@@ -33,25 +33,31 @@ export function Navigation() {
           </Link>
 
           <div className="flex items-center gap-4">
-            <Link href="/dashboard">
-              <Button variant="ghost" className="text-slate-300 hover:text-white">
-                Dashboard
-              </Button>
-            </Link>
-            <Link href="/analytics">
-              <Button variant="ghost" className="text-slate-300 hover:text-white">
-                <BarChart3 className="h-4 w-4 mr-2" />
-                Analytics
-              </Button>
-            </Link>
-
             {user ? (
               <>
-                <Button variant="ghost" className="text-slate-300 hover:text-white">
-                  <Heart className="h-4 w-4 mr-2" />
-                  Favorites
-                </Button>
-
+                <Link href='/map'>
+                  <Button variant="ghost" className="text-slate-300 hover:text-white">
+                    <Heart className="h-4 w-4 mr-2" />
+                    Star Map
+                  </Button>
+                </Link>
+                <Link href='/timemachine'>
+                  <Button variant="ghost" className="text-slate-300 hover:text-white">
+                    <Heart className="h-4 w-4 mr-2" />
+                    Time Travel
+                  </Button>
+                </Link>
+                <Link href="/dashboard">
+                  <Button variant="ghost" className="text-slate-300 hover:text-white">
+                    Dashboard
+                  </Button>
+                </Link>
+                <Link href="/analytics">
+                  <Button variant="ghost" className="text-slate-300 hover:text-white">
+                    <BarChart3 className="h-4 w-4 mr-2" />
+                    Analytics
+                  </Button>
+                </Link>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" size="icon">
